@@ -1,6 +1,5 @@
-const path = require("path");
-
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
@@ -11,14 +10,13 @@ const Cart = require("./models/cart");
 const CartItem = require("./models/cart-item");
 const Order = require("./models/order");
 const OrderItem = require("./models/order-item");
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
-
-const adminRoutes = require("./routes/admin");
-const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -56,14 +54,14 @@ sequelize
   })
   .then((user) => {
     if (!user) {
-      return User.create({ name: "Max", email: "test@test.com" });
+      return User.create({ name: "TestUser", email: "test@user.com" });
     }
     return user;
   })
-  .then((user) => {
-    // console.log(user);
-    return user.createCart();
-  })
+  // .then((user) => {
+  //   console.log(user);
+  //   return user.createCart();
+  // })
   .then((cart) => {
     app.listen(3000, () => {
       console.log("Server listening at port 3000");
